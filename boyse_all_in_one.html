@@ -1,0 +1,2375 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boyse All In One</title>
+  <style>
+    body {
+      margin: 0;
+      background: #070707;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .hero-root {
+    margin: 0;
+    background: #0d0d0d;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    position: relative;
+    border-radius: 12px;
+  }
+
+  /* NAV */
+  .hero-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 28px 48px;
+    position: relative;
+    z-index: 10;
+  }
+  .hero-nav .logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 4px;
+    color: #c9f63c;
+  }
+  .hero-nav .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+    margin: 0; padding: 0;
+  }
+  .hero-nav .nav-links a {
+    color: rgba(255,255,255,0.55);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .hero-nav .nav-links a:hover { color: #c9f63c; }
+  .hero-nav .nav-book {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #0d0d0d;
+    background: #c9f63c;
+    border: none;
+    padding: 10px 22px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+  }
+
+  /* HERO BODY */
+  .hero-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 24px;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* decorative noise lines */
+  .hero-body::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 80px,
+      rgba(201,246,60,0.03) 80px,
+      rgba(201,246,60,0.03) 81px
+    );
+    pointer-events: none;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    margin-bottom: 24px;
+  }
+
+  .hero-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(72px, 14vw, 160px);
+    color: #ffffff;
+    line-height: 0.88;
+    letter-spacing: 2px;
+    margin: 0 0 8px;
+  }
+  .hero-title .accent { color: #c9f63c; }
+
+  .hero-subtitle-line {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(28px, 5vw, 56px);
+    color: rgba(255,255,255,0.18);
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin: 0 0 32px;
+  }
+
+  .hero-desc {
+    font-size: 14px;
+    color: rgba(255,255,255,0.45);
+    letter-spacing: 1px;
+    max-width: 420px;
+    line-height: 1.8;
+    margin-bottom: 52px;
+  }
+
+  .cta-group {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background: #c9f63c;
+    color: #0d0d0d;
+    border: none;
+    padding: 16px 40px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 32px rgba(201,246,60,0.35), 0 0 80px rgba(201,246,60,0.12);
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 48px rgba(201,246,60,0.55), 0 0 100px rgba(201,246,60,0.2);
+  }
+  .btn-secondary {
+    background: transparent;
+    color: rgba(255,255,255,0.6);
+    border: 0.5px solid rgba(255,255,255,0.2);
+    padding: 16px 32px;
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: color 0.3s, border-color 0.3s;
+  }
+  .btn-secondary:hover { color: #c9f63c; border-color: rgba(201,246,60,0.4); }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow: hidden;
+    border-top: 0.5px solid rgba(255,255,255,0.07);
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    padding: 14px 0;
+    margin-top: auto;
+  }
+  .ticker-track {
+    display: flex;
+    gap: 0;
+    animation: ticker 22s linear infinite;
+    white-space: nowrap;
+  }
+  .ticker-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 0 40px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+  }
+  .ticker-item .dot {
+    width: 4px; height: 4px;
+    background: #c9f63c;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* SIDE LABEL */
+  .side-label {
+    position: absolute;
+    right: 32px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+
+  /* MARQUEE STRIP */
+  .marquee-strip {
+    background: #111;
+    overflow: hidden;
+    padding: 20px 0;
+    border-top: 1px solid rgba(201,246,60,0.15);
+    border-bottom: 1px solid rgba(201,246,60,0.15);
+  }
+  .marquee-inner {
+    display: flex;
+    white-space: nowrap;
+    animation: marquee-scroll 20s linear infinite;
+  }
+  .marquee-inner span {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: #c9f63c;
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    padding: 0 50px;
+  }
+  .marquee-inner span::after {
+    content: '★';
+    margin-left: 50px;
+  }
+
+  @keyframes marquee-scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  @keyframes ticker {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+
+  /* CUSTOM CURSOR */
+  body { cursor: none; }
+
+  .cursor-dot {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    background: #c9f63c;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 10000;
+    transform: translate(-50%, -50%);
+  }
+
+  .cursor-ring {
+    position: fixed;
+    width: 30px;
+    height: 30px;
+    border: 1.5px solid rgba(201,246,60,0.6);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: width 0.3s ease, height 0.3s ease, background 0.3s ease, border-color 0.3s ease;
+  }
+
+  .cursor-ring.hover {
+    width: 60px;
+    height: 60px;
+    background: rgba(201,246,60,0.15);
+    border-color: #c9f63c;
+  }
+</style>
+
+<div class="hero-root">
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Boyse Hair Salon — Premium cuts and styling, hero section</h2>
+
+  <nav class="hero-nav">
+    <div class="logo">BOYSE</div>
+    <ul class="hero-nav nav-links" style="list-style:none;display:flex;gap:32px;margin:0;padding:0;">
+      <li><a href="#">Services</a></li>
+      <li><a href="#">Gallery</a></li>
+      <li><a href="#">Team</a></li>
+      <li><a href="#">Contact</a></li>
+    </ul>
+    <button class="hero-nav nav-book">Book Now</button>
+  </nav>
+
+  <div class="hero-body">
+    <p class="eyebrow">Premium Hair Studio — Est. 2024</p>
+
+    <h1 class="hero-title">
+      BOYSE<br><span class="accent">HAIR</span>
+    </h1>
+
+    <p class="hero-subtitle-line">The Art of the Cut</p>
+
+    <p class="hero-desc">
+      Precision cuts. Bold transformations. A space built for those who take their look seriously.
+    </p>
+
+    <div class="cta-group">
+      <button class="btn-primary">Book Your Session</button>
+      <button class="btn-secondary">View Gallery</button>
+    </div>
+
+    <div class="side-label">Kathmandu · Nepal</div>
+  </div>
+
+  <div class="marquee-strip">
+    <div class="marquee-inner">
+      <span>Precision Cuts</span>
+      <span>Bold Transforms</span>
+      <span>Expert Stylists</span>
+      <span>Premium Products</span>
+      <span>Modern Techniques</span>
+      <span>Precision Cuts</span>
+      <span>Bold Transforms</span>
+      <span>Expert Stylists</span>
+      <span>Premium Products</span>
+      <span>Modern Techniques</span>
+    </div>
+  </div>
+
+  <script>
+    gsap.from('.hero-title', {opacity:0, y:60, duration:1.2, ease:'power3.out'});
+    gsap.from('.hero-subtitle-line', {opacity:0, y:30, duration:0.8, ease:'power3.out', delay:0.3});
+    gsap.from('.cta-group', {opacity:0, y:30, duration:0.8, ease:'power3.out', delay:0.6});
+
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+
+    let mouseX = 0, mouseY = 0;
+    let ringX = 0, ringY = 0;
+    const lerp = 0.12;
+
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      dot.style.left = mouseX + 'px';
+      dot.style.top = mouseY + 'px';
+    });
+
+    function animateRing() {
+      ringX += (mouseX - ringX) * lerp;
+      ringY += (mouseY - ringY) * lerp;
+      ring.style.left = ringX + 'px';
+      ring.style.top = ringY + 'px';
+      requestAnimationFrame(animateRing);
+    }
+    animateRing();
+
+    const hoverTargets = document.querySelectorAll('a, button, .btn-primary, .btn-secondary');
+    hoverTargets.forEach(el => {
+      el.addEventListener('mouseenter', () => ring.classList.add('hover'));
+      el.addEventListener('mouseleave', () => ring.classList.remove('hover'));
+    });
+  </script>
+
+  <div class="ticker-wrap">
+    <div class="ticker-track">
+      <span class="ticker-item"><span class="dot"></span>Precision Cuts</span>
+      <span class="ticker-item"><span class="dot"></span>Fades & Tapers</span>
+      <span class="ticker-item"><span class="dot"></span>Beard Sculpting</span>
+      <span class="ticker-item"><span class="dot"></span>Hot Towel Shave</span>
+      <span class="ticker-item"><span class="dot"></span>Color & Highlights</span>
+      <span class="ticker-item"><span class="dot"></span>Hair Treatments</span>
+      <span class="ticker-item"><span class="dot"></span>Walk-ins Welcome</span>
+      <span class="ticker-item"><span class="dot"></span>Precision Cuts</span>
+      <span class="ticker-item"><span class="dot"></span>Fades & Tapers</span>
+      <span class="ticker-item"><span class="dot"></span>Beard Sculpting</span>
+      <span class="ticker-item"><span class="dot"></span>Hot Towel Shave</span>
+      <span class="ticker-item"><span class="dot"></span>Color & Highlights</span>
+      <span class="ticker-item"><span class="dot"></span>Hair Treatments</span>
+      <span class="ticker-item"><span class="dot"></span>Walk-ins Welcome</span>
+    </div>
+  </div>
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .stats-root {
+    background: #0d0d0d;
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  /* ABOUT STRIP */
+  .about-strip {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 420px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  .about-left {
+    padding: 72px 56px;
+    border-right: 0.5px solid rgba(255,255,255,0.07);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    opacity: 0;
+    transform: translateX(-30px);
+    transition: opacity 0.9s ease, transform 0.9s ease;
+  }
+  .about-left.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  .about-eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    margin-bottom: 24px;
+  }
+  .about-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    color: #fff;
+    line-height: 0.9;
+    margin: 0 0 28px;
+    letter-spacing: 1px;
+  }
+  .about-title span { color: #c9f63c; }
+
+  .about-body {
+    font-size: 14px;
+    line-height: 1.9;
+    color: rgba(255,255,255,0.42);
+    max-width: 380px;
+    margin-bottom: 36px;
+  }
+
+  .about-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: 'Inter', sans-serif;
+    padding: 0;
+  }
+  .about-cta .arrow {
+    width: 32px;
+    height: 1px;
+    background: #c9f63c;
+    position: relative;
+    transition: width 0.3s;
+  }
+  .about-cta .arrow::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: -3px;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid #c9f63c;
+    border-top: 1px solid #c9f63c;
+    transform: rotate(45deg);
+  }
+  .about-cta:hover .arrow { width: 48px; }
+
+  .about-right {
+    padding: 72px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    opacity: 0;
+    transform: translateX(30px);
+    transition: opacity 0.9s ease 0.2s, transform 0.9s ease 0.2s;
+  }
+  .about-right.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* abstract chair/scissors illustration */
+  .about-illustration {
+    width: 100%;
+    max-width: 320px;
+  }
+
+  /* STATS GRID */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+
+  .stat-cell {
+    padding: 64px 48px;
+    border-right: 0.5px solid rgba(255,255,255,0.07);
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .stat-cell:last-child { border-right: none; }
+  .stat-cell.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .stat-cell:nth-child(2) { transition-delay: 0.15s; }
+  .stat-cell:nth-child(3) { transition-delay: 0.3s; }
+
+  .stat-cell::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: #c9f63c;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 1.2s ease 0.4s;
+  }
+  .stat-cell.visible::before { transform: scaleX(1); }
+
+  .stat-number {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 8vw, 112px);
+    color: #fff;
+    line-height: 1;
+    margin: 0 0 8px;
+    letter-spacing: -1px;
+    display: flex;
+    align-items: baseline;
+    gap: 4px;
+  }
+  .stat-number .stat-suffix {
+    font-size: clamp(28px, 3.5vw, 48px);
+    color: #c9f63c;
+  }
+  .stat-number .stat-prefix {
+    font-size: clamp(28px, 3.5vw, 48px);
+    color: #c9f63c;
+  }
+
+  .stat-label {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.35);
+    margin-bottom: 12px;
+  }
+  .stat-desc {
+    font-size: 13px;
+    line-height: 1.7;
+    color: rgba(255,255,255,0.22);
+    max-width: 200px;
+  }
+
+  /* MARQUEE QUOTE */
+  .quote-strip {
+    overflow: hidden;
+    padding: 24px 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+  .quote-track {
+    display: flex;
+    animation: qscroll 20s linear infinite;
+    white-space: nowrap;
+  }
+  .quote-item {
+    padding: 0 48px;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 4px;
+    color: rgba(255,255,255,0.06);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .quote-item.accent { color: #c9f63c; opacity: 0.7; }
+
+  @keyframes qscroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>
+
+<div class="stats-root">
+
+  <!-- ABOUT SPLIT -->
+  <div class="about-strip">
+    <div class="about-left" id="aboutLeft">
+      <p class="about-eyebrow">Who We Are</p>
+      <h2 class="about-title">THE<br>CHAIR IS<br><span>YOURS</span></h2>
+      <p class="about-body">
+        Boyse is a premium hair studio built for people who care about the details. Every cut is intentional. Every line is deliberate. We don't just style hair — we craft identities.
+      </p>
+      <button class="about-cta">Our Story <span class="arrow"></span></button>
+    </div>
+
+    <div class="about-right" id="aboutRight">
+      <svg class="about-illustration" viewBox="0 0 320 360" xmlns="http://www.w3.org/2000/svg">
+        <!-- barber chair silhouette abstraction -->
+        <rect x="60" y="280" width="200" height="12" rx="6" fill="#1e1e1e"/>
+        <rect x="100" y="260" width="120" height="24" rx="4" fill="#1a1a1a"/>
+        <rect x="130" y="180" width="60" height="84" rx="4" fill="#1e1e1e"/>
+        <!-- seat -->
+        <rect x="80" y="200" width="160" height="64" rx="8" fill="#222"/>
+        <!-- backrest -->
+        <rect x="90" y="100" width="140" height="106" rx="10" fill="#1e1e1e"/>
+        <!-- headrest -->
+        <rect x="110" y="76" width="100" height="36" rx="8" fill="#252525"/>
+        <!-- armrests -->
+        <rect x="60" y="196" width="28" height="48" rx="6" fill="#1e1e1e"/>
+        <rect x="232" y="196" width="28" height="48" rx="6" fill="#1e1e1e"/>
+        <!-- lime accent lines -->
+        <rect x="90" y="100" width="140" height="3" rx="1.5" fill="#c9f63c" opacity="0.6"/>
+        <rect x="80" y="200" width="160" height="3" rx="1.5" fill="#c9f63c" opacity="0.4"/>
+        <!-- scissors -->
+        <g transform="translate(230 50) rotate(-30)">
+          <circle cx="0" cy="0" r="10" fill="none" stroke="#c9f63c" stroke-width="1.5" opacity="0.7"/>
+          <circle cx="18" cy="0" r="10" fill="none" stroke="#c9f63c" stroke-width="1.5" opacity="0.7"/>
+          <line x1="7" y1="-6" x2="50" y2="-24" stroke="#c9f63c" stroke-width="1.5" opacity="0.7"/>
+          <line x1="7" y1="6" x2="50" y2="24" stroke="#c9f63c" stroke-width="1.5" opacity="0.7"/>
+        </g>
+        <!-- comb -->
+        <g transform="translate(40 60)">
+          <rect x="0" y="0" width="8" height="60" rx="2" fill="#1e1e1e" stroke="#333" stroke-width="0.5"/>
+          <line x1="0" y1="12" x2="-8" y2="12" stroke="#c9f63c" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="20" x2="-8" y2="20" stroke="#c9f63c" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="28" x2="-8" y2="28" stroke="#c9f63c" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="36" x2="-8" y2="36" stroke="#c9f63c" stroke-width="1" opacity="0.5"/>
+          <line x1="0" y1="44" x2="-8" y2="44" stroke="#c9f63c" stroke-width="1" opacity="0.5"/>
+        </g>
+        <!-- floor base poles -->
+        <rect x="108" y="292" width="8" height="48" rx="3" fill="#1a1a1a"/>
+        <rect x="204" y="292" width="8" height="48" rx="3" fill="#1a1a1a"/>
+        <ellipse cx="112" cy="340" rx="22" ry="6" fill="#161616"/>
+        <ellipse cx="208" cy="340" rx="22" ry="6" fill="#161616"/>
+      </svg>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-grid">
+    <div class="stat-cell" id="stat0">
+      <div class="stat-number">
+        <span class="stat-val" data-target="500" data-prefix="" data-suffix="+">0</span><span class="stat-suffix">+</span>
+      </div>
+      <p class="stat-label">Happy Clients</p>
+      <p class="stat-desc">Trusted by hundreds of clients across Kathmandu.</p>
+    </div>
+    <div class="stat-cell" id="stat1">
+      <div class="stat-number">
+        <span class="stat-val" data-target="8" data-prefix="" data-suffix="">0</span>
+        <span class="stat-suffix">yrs</span>
+      </div>
+      <p class="stat-label">In The Game</p>
+      <p class="stat-desc">Eight years of blades, fades and precision craft.</p>
+    </div>
+    <div class="stat-cell" id="stat2">
+      <div class="stat-number">
+        <span class="stat-prefix">#</span><span class="stat-val" data-target="1" data-prefix="#" data-suffix="">0</span>
+      </div>
+      <p class="stat-label">Ranked Studio</p>
+      <p class="stat-desc">The go-to destination for premium cuts in the valley.</p>
+    </div>
+  </div>
+
+  <!-- SCROLLING QUOTE -->
+  <div class="quote-strip">
+    <div class="quote-track">
+      <span class="quote-item">Precision</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Style</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Identity</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Craft</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Bold</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Sharp</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Precision</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Style</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Identity</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Craft</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Bold</span>
+      <span class="quote-item accent">✦</span>
+      <span class="quote-item">Sharp</span>
+      <span class="quote-item accent">✦</span>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function animateCount(el) {
+    const target = parseInt(el.dataset.target);
+    const duration = 1800;
+    const start = performance.now();
+    function step(now) {
+      const elapsed = now - start;
+      const progress = Math.min(elapsed / duration, 1);
+      const ease = 1 - Math.pow(1 - progress, 3);
+      el.textContent = Math.round(ease * target);
+      if (progress < 1) requestAnimationFrame(step);
+      else el.textContent = target;
+    }
+    requestAnimationFrame(step);
+  }
+
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.stat-val').forEach(animateCount);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.25 });
+
+  document.querySelectorAll('.stat-cell').forEach(c => io.observe(c));
+  document.querySelectorAll('#aboutLeft, #aboutRight').forEach(c => io.observe(c));
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .gallery-root {
+    background: #0d0d0d;
+    padding: 80px 0 0;
+    overflow: hidden;
+    font-family: 'Inter', sans-serif;
+    border-radius: 12px;
+  }
+
+  .gallery-header {
+    padding: 0 48px 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.2s forwards;
+  }
+  .gallery-label {
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    margin-bottom: 12px;
+  }
+  .gallery-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 7vw, 72px);
+    color: #ffffff;
+    line-height: 0.9;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+  .gallery-count {
+    font-size: 11px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.25);
+    text-transform: uppercase;
+  }
+
+  /* TRACK */
+  .gallery-track-wrap {
+    position: relative;
+    overflow: hidden;
+    padding: 8px 0 40px;
+  }
+
+  /* fade edges */
+  .gallery-track-wrap::before,
+  .gallery-track-wrap::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .gallery-track-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, #0d0d0d, transparent);
+  }
+  .gallery-track-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, #0d0d0d, transparent);
+  }
+
+  .gallery-track {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollLeft 30s linear infinite;
+  }
+  .gallery-track:hover {
+    animation-play-state: paused;
+  }
+
+  .gallery-card {
+    width: 280px;
+    height: 360px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+
+  .gallery-card-inner {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+  }
+  .gallery-card:hover .gallery-card-inner {
+    transform: scale(1.06);
+  }
+
+  /* Gradient overlay */
+  .gallery-card-inner::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 55%);
+    z-index: 1;
+  }
+
+  /* Placeholder image using CSS patterns */
+  .card-img {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  .card-meta {
+    position: absolute;
+    bottom: 18px;
+    left: 18px;
+    z-index: 2;
+  }
+  .card-tag {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    margin-bottom: 4px;
+  }
+  .card-name {
+    font-size: 14px;
+    font-weight: 500;
+    color: #ffffff;
+    letter-spacing: 1px;
+  }
+
+  /* SECOND ROW — slower, reverse */
+  .gallery-track-wrap-2 {
+    position: relative;
+    overflow: hidden;
+    padding: 0 0 80px;
+  }
+  .gallery-track-wrap-2::before,
+  .gallery-track-wrap-2::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 120px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .gallery-track-wrap-2::before {
+    left: 0;
+    background: linear-gradient(to right, #0d0d0d, transparent);
+  }
+  .gallery-track-wrap-2::after {
+    right: 0;
+    background: linear-gradient(to left, #0d0d0d, transparent);
+  }
+  .gallery-track-2 {
+    display: flex;
+    gap: 20px;
+    width: max-content;
+    animation: scrollRight 36s linear infinite;
+  }
+  .gallery-track-2:hover {
+    animation-play-state: paused;
+  }
+
+  .gallery-card-wide {
+    width: 200px;
+    height: 240px;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    flex-shrink: 0;
+    cursor: pointer;
+  }
+  .gallery-card-wide .gallery-card-inner {
+    width: 100%;
+    height: 100%;
+  }
+
+  /* BOTTOM TICKER */
+  .gallery-ticker {
+    border-top: 0.5px solid rgba(255,255,255,0.07);
+    padding: 16px 0;
+    overflow: hidden;
+  }
+  .gallery-ticker-track {
+    display: flex;
+    animation: scrollLeft 18s linear infinite;
+    white-space: nowrap;
+  }
+  .gtick {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 36px;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.2);
+  }
+  .gtick-dot {
+    width: 3px; height: 3px;
+    background: #c9f63c;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  @keyframes scrollLeft {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes scrollRight {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* SVG placeholder palettes */
+  .p1 { --bg: #1a1a1a; --a: #c9f63c; --b: #2a2a2a; }
+  .p2 { --bg: #111; --a: #3a3a3a; --b: #c9f63c; }
+  .p3 { --bg: #161616; --a: #c9f63c; --b: #222; }
+  .p4 { --bg: #0f0f0f; --a: #252525; --b: #c9f63c; }
+</style>
+
+<div class="gallery-root">
+  <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);">Boyse Hair Salon photo gallery</h2>
+
+  <div class="gallery-header">
+    <div>
+      <p class="gallery-label">Our Work</p>
+      <h2 class="gallery-title">THE<br>GALLERY</h2>
+    </div>
+    <span class="gallery-count">08 looks</span>
+  </div>
+
+  <!-- ROW 1 -->
+  <div class="gallery-track-wrap">
+    <div class="gallery-track" id="row1">
+
+      <!-- Card 1 -->
+      <div class="gallery-card p1">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#1a1a1a"/>
+            <circle cx="140" cy="120" r="54" fill="#2a2a2a"/>
+            <ellipse cx="140" cy="290" rx="90" ry="60" fill="#222"/>
+            <rect x="120" y="66" width="40" height="14" rx="7" fill="#c9f63c" opacity="0.7"/>
+            <line x1="0" y1="200" x2="280" y2="200" stroke="#c9f63c" stroke-width="0.5" opacity="0.15"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Fade</p>
+            <p class="card-name">Clean Drop</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="gallery-card p2">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#111"/>
+            <rect x="0" y="0" width="280" height="360" fill="url(#g2)"/>
+            <defs>
+              <linearGradient id="g2" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#1e1e1e"/>
+                <stop offset="100%" stop-color="#0a0a0a"/>
+              </linearGradient>
+            </defs>
+            <circle cx="140" cy="115" r="56" fill="#1e1e1e"/>
+            <ellipse cx="140" cy="295" rx="95" ry="65" fill="#161616"/>
+            <rect x="100" y="210" width="80" height="2" rx="1" fill="#c9f63c" opacity="0.5"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Texture</p>
+            <p class="card-name">Taper & Crop</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="gallery-card p3">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#161616"/>
+            <circle cx="140" cy="118" r="52" fill="#1f1f1f"/>
+            <ellipse cx="140" cy="288" rx="88" ry="62" fill="#181818"/>
+            <path d="M80 150 Q140 130 200 150" stroke="#c9f63c" stroke-width="1" fill="none" opacity="0.4"/>
+            <circle cx="200" cy="60" r="20" fill="#c9f63c" opacity="0.08"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Style</p>
+            <p class="card-name">Slick Back</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="gallery-card p4">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#0f0f0f"/>
+            <circle cx="140" cy="120" r="55" fill="#1c1c1c"/>
+            <ellipse cx="140" cy="292" rx="92" ry="63" fill="#151515"/>
+            <rect x="0" y="170" width="280" height="1" fill="#c9f63c" opacity="0.12"/>
+            <rect x="0" y="220" width="280" height="1" fill="#c9f63c" opacity="0.06"/>
+            <circle cx="50" cy="320" r="30" fill="#c9f63c" opacity="0.04"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Beard</p>
+            <p class="card-name">Line-Up</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- duplicates for infinite loop -->
+      <div class="gallery-card p1">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#1a1a1a"/>
+            <circle cx="140" cy="120" r="54" fill="#2a2a2a"/>
+            <ellipse cx="140" cy="290" rx="90" ry="60" fill="#222"/>
+            <path d="M60 100 Q140 80 220 100" stroke="#c9f63c" stroke-width="1.5" fill="none" opacity="0.3"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Color</p>
+            <p class="card-name">Ash Blend</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card p2">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#111"/>
+            <circle cx="140" cy="115" r="56" fill="#1e1e1e"/>
+            <ellipse cx="140" cy="295" rx="95" ry="65" fill="#161616"/>
+            <rect x="30" y="240" width="220" height="1" fill="#c9f63c" opacity="0.3"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Classic</p>
+            <p class="card-name">Side Part</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card p3">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#161616"/>
+            <circle cx="140" cy="118" r="52" fill="#1f1f1f"/>
+            <ellipse cx="140" cy="288" rx="88" ry="62" fill="#181818"/>
+            <circle cx="240" cy="80" r="40" fill="#c9f63c" opacity="0.05"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Trim</p>
+            <p class="card-name">French Crop</p>
+          </div>
+        </div>
+      </div>
+      <div class="gallery-card p4">
+        <div class="gallery-card-inner">
+          <svg class="card-img" viewBox="0 0 280 360" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+            <rect width="280" height="360" fill="#0f0f0f"/>
+            <circle cx="140" cy="120" r="55" fill="#1c1c1c"/>
+            <ellipse cx="140" cy="292" rx="92" ry="63" fill="#151515"/>
+            <rect x="0" y="180" width="280" height="0.5" fill="#c9f63c" opacity="0.2"/>
+          </svg>
+          <div class="card-meta">
+            <p class="card-tag">Shave</p>
+            <p class="card-name">Hot Towel</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 2 — reverse, smaller cards -->
+  <div class="gallery-track-wrap-2">
+    <div class="gallery-track-2">
+
+      <div class="gallery-card-wide p2"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#111"/>
+          <circle cx="100" cy="85" r="38" fill="#1e1e1e"/>
+          <ellipse cx="100" cy="200" rx="65" ry="45" fill="#161616"/>
+          <rect x="60" y="130" width="80" height="1" fill="#c9f63c" opacity="0.4"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Skin</p><p class="card-name">Zero Fade</p></div>
+      </div></div>
+
+      <div class="gallery-card-wide p3"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#161616"/>
+          <circle cx="100" cy="82" r="40" fill="#222"/>
+          <ellipse cx="100" cy="198" rx="68" ry="47" fill="#1a1a1a"/>
+          <path d="M30 110 Q100 95 170 110" stroke="#c9f63c" stroke-width="1" fill="none" opacity="0.35"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Wave</p><p class="card-name">360 Waves</p></div>
+      </div></div>
+
+      <div class="gallery-card-wide p1"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#1a1a1a"/>
+          <circle cx="100" cy="84" r="39" fill="#2a2a2a"/>
+          <ellipse cx="100" cy="200" rx="66" ry="46" fill="#202020"/>
+          <circle cx="160" cy="40" r="18" fill="#c9f63c" opacity="0.07"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Color</p><p class="card-name">Hi-Lift</p></div>
+      </div></div>
+
+      <div class="gallery-card-wide p4"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#0f0f0f"/>
+          <circle cx="100" cy="83" r="41" fill="#1c1c1c"/>
+          <ellipse cx="100" cy="202" rx="70" ry="48" fill="#141414"/>
+          <rect x="0" y="140" width="200" height="0.5" fill="#c9f63c" opacity="0.25"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Beard</p><p class="card-name">Full Shape</p></div>
+      </div></div>
+
+      <!-- duplicates -->
+      <div class="gallery-card-wide p2"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#111"/>
+          <circle cx="100" cy="85" r="38" fill="#1e1e1e"/>
+          <ellipse cx="100" cy="200" rx="65" ry="45" fill="#161616"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Skin</p><p class="card-name">Zero Fade</p></div>
+      </div></div>
+      <div class="gallery-card-wide p3"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#161616"/>
+          <circle cx="100" cy="82" r="40" fill="#222"/>
+          <ellipse cx="100" cy="198" rx="68" ry="47" fill="#1a1a1a"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Wave</p><p class="card-name">360 Waves</p></div>
+      </div></div>
+      <div class="gallery-card-wide p1"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#1a1a1a"/>
+          <circle cx="100" cy="84" r="39" fill="#2a2a2a"/>
+          <ellipse cx="100" cy="200" rx="66" ry="46" fill="#202020"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Color</p><p class="card-name">Hi-Lift</p></div>
+      </div></div>
+      <div class="gallery-card-wide p4"><div class="gallery-card-inner">
+        <svg class="card-img" viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+          <rect width="200" height="240" fill="#0f0f0f"/>
+          <circle cx="100" cy="83" r="41" fill="#1c1c1c"/>
+          <ellipse cx="100" cy="202" rx="70" ry="48" fill="#141414"/>
+        </svg>
+        <div class="card-meta"><p class="card-tag">Beard</p><p class="card-name">Full Shape</p></div>
+      </div></div>
+
+    </div>
+  </div>
+
+  <!-- bottom ticker -->
+  <div class="gallery-ticker">
+    <div class="gallery-ticker-track">
+      <span class="gtick"><span class="gtick-dot"></span>Hover to pause</span>
+      <span class="gtick"><span class="gtick-dot"></span>8 signature looks</span>
+      <span class="gtick"><span class="gtick-dot"></span>Boyse Hair Studio</span>
+      <span class="gtick"><span class="gtick-dot"></span>Book Your Session</span>
+      <span class="gtick"><span class="gtick-dot"></span>Kathmandu · Nepal</span>
+      <span class="gtick"><span class="gtick-dot"></span>Hover to pause</span>
+      <span class="gtick"><span class="gtick-dot"></span>8 signature looks</span>
+      <span class="gtick"><span class="gtick-dot"></span>Boyse Hair Studio</span>
+      <span class="gtick"><span class="gtick-dot"></span>Book Your Session</span>
+      <span class="gtick"><span class="gtick-dot"></span>Kathmandu · Nepal</span>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .portfolio-root {
+    background: #0d0d0d;
+    font-family: 'Inter', sans-serif;
+    padding: 80px 48px;
+    border-radius: 12px;
+  }
+
+  .portfolio-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .portfolio-header.visible { opacity: 1; transform: translateY(0); }
+
+  .ph-left .eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: #c9f63c;
+    margin-bottom: 12px;
+  }
+  .ph-left h2 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(42px, 6vw, 72px);
+    color: #fff;
+    line-height: 0.9;
+    margin: 0;
+    letter-spacing: 1px;
+  }
+  .ph-right {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* GRID */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3px;
+  }
+
+  .p-card {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: 3/4;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .p-card.visible { opacity: 1; transform: translateY(0); }
+  .p-card:nth-child(2) { transition-delay: 0.1s; }
+  .p-card:nth-child(3) { transition-delay: 0.2s; }
+  .p-card:nth-child(4) { transition-delay: 0.15s; }
+  .p-card:nth-child(5) { transition-delay: 0.25s; }
+  .p-card:nth-child(6) { transition-delay: 0.35s; }
+
+  /* wide card spans 2 cols */
+  .p-card.wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+  .p-card-bg {
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    display: block;
+  }
+  .p-card:hover .p-card-bg { transform: scale(1.07); }
+
+  /* lime overlay */
+  .p-overlay {
+    position: absolute;
+    inset: 0;
+    background: #c9f63c;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 24px;
+  }
+  .p-card:hover .p-overlay { opacity: 0.92; }
+
+  .p-overlay-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: #0d0d0d;
+    letter-spacing: 2px;
+    line-height: 1;
+    margin: 0 0 6px;
+    transform: translateY(12px);
+    transition: transform 0.4s ease 0.05s;
+  }
+  .p-card:hover .p-overlay-title { transform: translateY(0); }
+
+  .p-overlay-year {
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(0,0,0,0.55);
+    transform: translateY(12px);
+    transition: transform 0.4s ease 0.1s;
+  }
+  .p-card:hover .p-overlay-year { transform: translateY(0); }
+
+  .p-overlay-arrow {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(0,0,0,0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transform: translate(8px, -8px);
+    transition: opacity 0.3s ease 0.1s, transform 0.3s ease 0.1s;
+  }
+  .p-card:hover .p-overlay-arrow { opacity: 1; transform: translate(0, 0); }
+  .p-overlay-arrow svg { width: 14px; height: 14px; }
+
+  /* default info bar at bottom (no hover) */
+  .p-info {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 40px 20px 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.75), transparent);
+    transition: opacity 0.3s;
+  }
+  .p-card:hover .p-info { opacity: 0; }
+  .p-info-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: #fff;
+    letter-spacing: 1px;
+    margin: 0 0 2px;
+  }
+  .p-info-year {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+  }
+
+  /* SVG palettes */
+  .bg-a { background: #141414; }
+  .bg-b { background: #111; }
+  .bg-c { background: #161616; }
+  .bg-d { background: #0f0f0f; }
+  .bg-e { background: #131313; }
+  .bg-f { background: #181818; }
+</style>
+
+<div class="portfolio-root">
+
+  <div class="portfolio-header" id="portHeader">
+    <div class="ph-left">
+      <p class="eyebrow">Portfolio</p>
+      <h2>THE<br>LOOKS</h2>
+    </div>
+    <span class="ph-right">6 Works</span>
+  </div>
+
+  <div class="portfolio-grid">
+
+    <!-- Card 1 - tall -->
+    <div class="p-card bg-a" id="pc0">
+      <svg class="p-card-bg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="400" fill="#141414"/>
+        <circle cx="150" cy="140" r="66" fill="#1f1f1f"/>
+        <ellipse cx="150" cy="340" rx="110" ry="75" fill="#191919"/>
+        <rect x="130" y="74" width="40" height="10" rx="5" fill="#c9f63c" opacity="0.6"/>
+        <line x1="0" y1="250" x2="300" y2="250" stroke="#c9f63c" stroke-width="0.5" opacity="0.1"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">Drop Fade</p>
+        <p class="p-info-year">2024</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">Drop Fade</p>
+        <p class="p-overlay-year">2024 · Fade Series</p>
+      </div>
+    </div>
+
+    <!-- Card 2 - tall -->
+    <div class="p-card bg-b" id="pc1">
+      <svg class="p-card-bg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="400" fill="#111"/>
+        <circle cx="150" cy="138" r="64" fill="#1c1c1c"/>
+        <ellipse cx="150" cy="338" rx="108" ry="73" fill="#161616"/>
+        <path d="M70 180 Q150 160 230 180" stroke="#c9f63c" stroke-width="1.2" fill="none" opacity="0.3"/>
+        <circle cx="240" cy="70" r="28" fill="#c9f63c" opacity="0.05"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">Taper Crop</p>
+        <p class="p-info-year">2024</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">Taper Crop</p>
+        <p class="p-overlay-year">2024 · Clean Series</p>
+      </div>
+    </div>
+
+    <!-- Card 3 - tall -->
+    <div class="p-card bg-c" id="pc2">
+      <svg class="p-card-bg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="400" fill="#161616"/>
+        <circle cx="150" cy="142" r="65" fill="#202020"/>
+        <ellipse cx="150" cy="342" rx="109" ry="74" fill="#1a1a1a"/>
+        <rect x="0" y="210" width="300" height="1" fill="#c9f63c" opacity="0.12"/>
+        <circle cx="40" cy="360" r="40" fill="#c9f63c" opacity="0.04"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">Slick Back</p>
+        <p class="p-info-year">2023</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">Slick Back</p>
+        <p class="p-overlay-year">2023 · Style Series</p>
+      </div>
+    </div>
+
+    <!-- Card 4 - wide (spans 2) -->
+    <div class="p-card wide bg-d" id="pc3">
+      <svg class="p-card-bg" viewBox="0 0 600 340" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="600" height="340" fill="#0f0f0f"/>
+        <circle cx="300" cy="140" r="80" fill="#1c1c1c"/>
+        <ellipse cx="300" cy="300" rx="160" ry="80" fill="#161616"/>
+        <rect x="0" y="180" width="600" height="0.8" fill="#c9f63c" opacity="0.1"/>
+        <path d="M100 80 Q300 60 500 80" stroke="#c9f63c" stroke-width="1" fill="none" opacity="0.15"/>
+        <circle cx="520" cy="40" r="50" fill="#c9f63c" opacity="0.03"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">Beard Sculpt</p>
+        <p class="p-info-year">2024</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">Beard Sculpt</p>
+        <p class="p-overlay-year">2024 · Beard Series</p>
+      </div>
+    </div>
+
+    <!-- Card 5 - tall -->
+    <div class="p-card bg-e" id="pc4">
+      <svg class="p-card-bg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="400" fill="#131313"/>
+        <circle cx="150" cy="140" r="63" fill="#1d1d1d"/>
+        <ellipse cx="150" cy="336" rx="107" ry="72" fill="#181818"/>
+        <line x1="150" y1="0" x2="150" y2="400" stroke="#c9f63c" stroke-width="0.5" opacity="0.06"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">French Crop</p>
+        <p class="p-info-year">2023</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">French Crop</p>
+        <p class="p-overlay-year">2023 · Classic Series</p>
+      </div>
+    </div>
+
+    <!-- Card 6 - tall -->
+    <div class="p-card bg-f" id="pc5">
+      <svg class="p-card-bg" viewBox="0 0 300 400" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice">
+        <rect width="300" height="400" fill="#181818"/>
+        <circle cx="150" cy="143" r="67" fill="#222"/>
+        <ellipse cx="150" cy="344" rx="112" ry="76" fill="#1c1c1c"/>
+        <rect x="50" y="240" width="200" height="1" fill="#c9f63c" opacity="0.2"/>
+        <rect x="130" y="76" width="40" height="8" rx="4" fill="#c9f63c" opacity="0.4"/>
+      </svg>
+      <div class="p-info">
+        <p class="p-info-title">360 Waves</p>
+        <p class="p-info-year">2024</p>
+      </div>
+      <div class="p-overlay">
+        <div class="p-overlay-arrow">
+          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M2 12L12 2M12 2H4M12 2V10" stroke="#0d0d0d" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <p class="p-overlay-title">360 Waves</p>
+        <p class="p-overlay-year">2024 · Texture Series</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const io2 = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io2.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.portfolio-header, .p-card').forEach(el => io2.observe(el));
+</script>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .marquee-root {
+    background: #0d0d0d;
+    font-family: 'Inter', sans-serif;
+    padding: 72px 0;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .marquee-header {
+    text-align: center;
+    margin-bottom: 52px;
+    padding: 0 48px;
+  }
+  .marquee-eyebrow {
+    font-size: 10px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+  }
+
+  /* top border line */
+  .marquee-band {
+    border-top: 0.5px solid rgba(255,255,255,0.07);
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    padding: 32px 0;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* edge fade */
+  .marquee-band::before,
+  .marquee-band::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 140px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .marquee-band::before { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
+  .marquee-band::after  { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
+
+  .marquee-track {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    width: max-content;
+    animation: mscroll 28s linear infinite;
+  }
+  .marquee-track:hover { animation-play-state: paused; }
+
+  .logo-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 56px;
+    border-right: 0.5px solid rgba(255,255,255,0.07);
+    opacity: 0.35;
+    transition: opacity 0.3s;
+    flex-shrink: 0;
+  }
+  .logo-item:hover { opacity: 1; }
+
+  .logo-item svg {
+    height: 28px;
+    width: auto;
+    fill: #ffffff;
+    display: block;
+  }
+
+  /* second row — slower, reversed */
+  .marquee-band-2 {
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    padding: 24px 0;
+    overflow: hidden;
+    position: relative;
+    margin-top: 0;
+  }
+  .marquee-band-2::before,
+  .marquee-band-2::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 140px;
+    z-index: 2;
+    pointer-events: none;
+  }
+  .marquee-band-2::before { left: 0; background: linear-gradient(to right, #0d0d0d, transparent); }
+  .marquee-band-2::after  { right: 0; background: linear-gradient(to left, #0d0d0d, transparent); }
+
+  .marquee-track-2 {
+    display: flex;
+    align-items: center;
+    width: max-content;
+    animation: mscroll-r 34s linear infinite;
+  }
+  .marquee-track-2:hover { animation-play-state: paused; }
+
+  .logo-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 40px;
+    border-right: 0.5px solid rgba(255,255,255,0.06);
+    flex-shrink: 0;
+  }
+  .logo-pill-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    background: #c9f63c;
+    opacity: 0.6;
+    flex-shrink: 0;
+  }
+  .logo-pill-text {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 3px;
+    color: rgba(255,255,255,0.2);
+    white-space: nowrap;
+  }
+
+  .partners-note {
+    text-align: center;
+    padding: 40px 48px 0;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.15);
+  }
+
+  @keyframes mscroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+  @keyframes mscroll-r {
+    from { transform: translateX(-50%); }
+    to   { transform: translateX(0); }
+  }
+</style>
+
+<div class="marquee-root">
+
+  <div class="marquee-header">
+    <p class="marquee-eyebrow">Trusted by · Loved by · Worn by</p>
+  </div>
+
+  <!-- ROW 1 — brand logos as SVG wordmarks -->
+  <div class="marquee-band">
+    <div class="marquee-track">
+
+      <!-- Wahl -->
+      <div class="logo-item">
+        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">WAHL</text>
+        </svg>
+      </div>
+      <!-- Andis -->
+      <div class="logo-item">
+        <svg viewBox="0 0 90 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">ANDIS</text>
+        </svg>
+      </div>
+      <!-- Keune -->
+      <div class="logo-item">
+        <svg viewBox="0 0 110 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">KEUNE</text>
+        </svg>
+      </div>
+      <!-- Babyliss -->
+      <div class="logo-item">
+        <svg viewBox="0 0 155 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">BABYLISS</text>
+        </svg>
+      </div>
+      <!-- Oster -->
+      <div class="logo-item">
+        <svg viewBox="0 0 100 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">OSTER</text>
+        </svg>
+      </div>
+      <!-- Schwarzkopf -->
+      <div class="logo-item">
+        <svg viewBox="0 0 220 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">SCHWARZKOPF</text>
+        </svg>
+      </div>
+      <!-- American Crew -->
+      <div class="logo-item">
+        <svg viewBox="0 0 230 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">AMERICAN CREW</text>
+        </svg>
+      </div>
+
+      <!-- DUPLICATES for seamless loop -->
+      <div class="logo-item">
+        <svg viewBox="0 0 80 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">WAHL</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 90 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">ANDIS</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 110 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">KEUNE</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 155 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">BABYLISS</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 100 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">OSTER</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 220 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">SCHWARZKOPF</text>
+        </svg>
+      </div>
+      <div class="logo-item">
+        <svg viewBox="0 0 230 28" xmlns="http://www.w3.org/2000/svg">
+          <text x="0" y="22" font-family="Bebas Neue, sans-serif" font-size="26" fill="#fff" letter-spacing="2">AMERICAN CREW</text>
+        </svg>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ROW 2 — pill tags reverse -->
+  <div class="marquee-band-2">
+    <div class="marquee-track-2">
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Premium Tools</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Pro Products</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Award Winning</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Kathmandu</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Since 2017</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Top Barbers</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Premium Tools</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Pro Products</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Award Winning</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Kathmandu</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Since 2017</span></div>
+      <div class="logo-pill"><span class="logo-pill-dot"></span><span class="logo-pill-text">Top Barbers</span></div>
+    </div>
+  </div>
+
+  <p class="partners-note">Hover either row to pause</p>
+
+</div>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;700&display=swap');
+
+  .footer-root {
+    background: #0d0d0d;
+    font-family: 'Inter', sans-serif;
+    border-top: 0.5px solid rgba(255,255,255,0.07);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  /* TAGLINE BAND */
+  .footer-tagline-band {
+    padding: 80px 48px 64px;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+    position: relative;
+    overflow: hidden;
+  }
+  .footer-tagline-band::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 48px; right: 48px;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #c9f63c, transparent);
+    opacity: 0.3;
+  }
+
+  .footer-tagline {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(52px, 9vw, 120px);
+    color: #fff;
+    line-height: 0.88;
+    margin: 0 0 32px;
+    letter-spacing: 1px;
+  }
+  .footer-tagline span { color: #c9f63c; }
+
+  .footer-book-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 14px;
+    background: #c9f63c;
+    color: #0d0d0d;
+    border: none;
+    padding: 18px 44px;
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 0 40px rgba(201,246,60,0.25);
+  }
+  .footer-book-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 60px rgba(201,246,60,0.4);
+  }
+
+  /* MAIN FOOTER GRID */
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 0;
+    border-bottom: 0.5px solid rgba(255,255,255,0.07);
+  }
+  .footer-col {
+    padding: 52px 40px;
+    border-right: 0.5px solid rgba(255,255,255,0.07);
+  }
+  .footer-col:last-child { border-right: none; }
+
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    letter-spacing: 5px;
+    color: #c9f63c;
+    margin-bottom: 16px;
+  }
+  .footer-tagline-small {
+    font-size: 13px;
+    color: rgba(255,255,255,0.35);
+    line-height: 1.8;
+    max-width: 240px;
+    margin-bottom: 32px;
+  }
+
+  /* social icons */
+  .footer-socials {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .social-btn {
+    width: 40px; height: 40px;
+    border: 0.5px solid rgba(255,255,255,0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: border-color 0.3s, background 0.3s;
+    text-decoration: none;
+  }
+  .social-btn:hover {
+    border-color: #c9f63c;
+    background: rgba(201,246,60,0.08);
+  }
+  .social-btn svg {
+    width: 16px; height: 16px;
+    fill: rgba(255,255,255,0.5);
+    transition: fill 0.3s;
+  }
+  .social-btn:hover svg { fill: #c9f63c; }
+
+  .footer-col-title {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.25);
+    margin-bottom: 24px;
+  }
+
+  .footer-links {
+    list-style: none;
+    margin: 0; padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .footer-links li a {
+    text-decoration: none;
+    font-size: 13px;
+    color: rgba(255,255,255,0.45);
+    transition: color 0.3s;
+    letter-spacing: 0.5px;
+  }
+  .footer-links li a:hover { color: #c9f63c; }
+
+  .footer-address {
+    font-size: 12px;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.9;
+  }
+  .footer-address strong {
+    display: block;
+    color: rgba(255,255,255,0.5);
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+
+  /* BOTTOM BAR */
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 40px;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy {
+    font-size: 11px;
+    color: rgba(255,255,255,0.2);
+    letter-spacing: 1px;
+  }
+  .footer-copy span { color: #c9f63c; }
+
+  .footer-bottom-links {
+    display: flex;
+    gap: 24px;
+  }
+  .footer-bottom-links a {
+    font-size: 11px;
+    letter-spacing: 1px;
+    color: rgba(255,255,255,0.2);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-bottom-links a:hover { color: #c9f63c; }
+</style>
+
+<div class="footer-root">
+
+  <!-- TAGLINE -->
+  <div class="footer-tagline-band">
+    <h2 class="footer-tagline">ALWAYS<br><span>BRINGING</span><br>THE FIGHT</h2>
+    <button class="footer-book-cta">Book Your Session →</button>
+  </div>
+
+  <!-- MAIN COLUMNS -->
+  <div class="footer-grid">
+
+    <!-- Brand col -->
+    <div class="footer-col">
+      <div class="footer-logo">BOYSE</div>
+      <p class="footer-tagline-small">Premium hair studio based in Kathmandu. Every cut is intentional. Every line is deliberate.</p>
+      <div class="footer-socials">
+        <!-- TikTok -->
+        <a class="social-btn" href="#">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 00-.79-.05 6.34 6.34 0 00-6.34 6.34 6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.33-6.34V8.69a8.14 8.14 0 004.76 1.52V6.76a4.85 4.85 0 01-.99-.07z"/>
+          </svg>
+        </a>
+        <!-- Instagram -->
+        <a class="social-btn" href="#">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
+          </svg>
+        </a>
+        <!-- YouTube -->
+        <a class="social-btn" href="#">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M23.495 6.205a3.007 3.007 0 00-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 00.527 6.205a31.247 31.247 0 00-.522 5.805 31.247 31.247 0 00.522 5.783 3.007 3.007 0 002.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 002.088-2.088 31.247 31.247 0 00.5-5.783 31.247 31.247 0 00-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/>
+          </svg>
+        </a>
+        <!-- Twitch -->
+        <a class="social-btn" href="#">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <div class="footer-col">
+      <p class="footer-col-title">Navigate</p>
+      <ul class="footer-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Services</a></li>
+        <li><a href="#">Gallery</a></li>
+        <li><a href="#">Team</a></li>
+        <li><a href="#">Book Now</a></li>
+      </ul>
+    </div>
+
+    <!-- Services -->
+    <div class="footer-col">
+      <p class="footer-col-title">Services</p>
+      <ul class="footer-links">
+        <li><a href="#">Haircuts & Fades</a></li>
+        <li><a href="#">Beard Sculpting</a></li>
+        <li><a href="#">Hot Towel Shave</a></li>
+        <li><a href="#">Color & Highlights</a></li>
+        <li><a href="#">Hair Treatments</a></li>
+      </ul>
+    </div>
+
+    <!-- Contact -->
+    <div class="footer-col">
+      <p class="footer-col-title">Find Us</p>
+      <div class="footer-address">
+        <strong>Boyse Hair Studio</strong>
+        Thamel, Kathmandu<br>
+        Bagmati Province<br>
+        Nepal<br><br>
+        <strong>Hours</strong>
+        Mon–Sat: 10am – 8pm<br>
+        Sun: 11am – 6pm
+      </div>
+    </div>
+
+  </div>
+
+  <!-- BOTTOM BAR -->
+  <div class="footer-bottom">
+    <p class="footer-copy">© 2025 <span>Boyse Hair Studio</span>. All rights reserved.</p>
+    <div class="footer-bottom-links">
+      <a href="#">Privacy</a>
+      <a href="#">Terms</a>
+      <a href="#">Cookies</a>
+    </div>
+  </div>
+
+</div>
+
+<style>
+  .admin-fab {
+    display: none;
+    position: fixed;
+    right: 24px;
+    bottom: 24px;
+    z-index: 11000;
+    border: 1px solid rgba(201,246,60,0.5);
+    background: rgba(10,10,10,0.92);
+    color: #c9f63c;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 16px;
+    padding: 10px 18px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  }
+  .admin-fab:hover {
+    transform: translateY(-2px);
+    background: rgba(18,18,18,0.98);
+    box-shadow: 0 14px 35px rgba(0,0,0,0.55);
+  }
+
+  .admin-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 12000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: rgba(4,4,4,0.74);
+    backdrop-filter: blur(7px);
+  }
+  .admin-overlay.open { display: flex; }
+
+  .admin-card {
+    width: min(420px, 100%);
+    background: linear-gradient(140deg, #0f0f0f 0%, #171717 100%);
+    border: 1px solid rgba(201,246,60,0.25);
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+  }
+
+  .admin-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  .admin-title {
+    margin: 0;
+    color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    letter-spacing: 2px;
+    font-size: 36px;
+    line-height: 1;
+  }
+  .admin-close {
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+  }
+
+  .admin-sub {
+    margin: 0 0 18px;
+    color: rgba(255,255,255,0.55);
+    font-size: 12px;
+    letter-spacing: 1px;
+  }
+
+  .admin-form {
+    display: grid;
+    gap: 12px;
+  }
+  .admin-input {
+    width: 100%;
+    border: 1px solid rgba(255,255,255,0.16);
+    background: rgba(255,255,255,0.04);
+    color: #fff;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 14px;
+    outline: none;
+  }
+  .admin-input:focus {
+    border-color: rgba(201,246,60,0.75);
+    box-shadow: 0 0 0 3px rgba(201,246,60,0.12);
+  }
+
+  .admin-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 4px;
+  }
+  .admin-submit,
+  .admin-logout {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 12px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .admin-submit {
+    background: #c9f63c;
+    color: #0d0d0d;
+  }
+  .admin-logout {
+    display: none;
+    background: rgba(255,255,255,0.1);
+    color: rgba(255,255,255,0.85);
+    border: 1px solid rgba(255,255,255,0.18);
+  }
+
+  .admin-msg {
+    min-height: 18px;
+    margin-top: 10px;
+    font-size: 12px;
+    letter-spacing: 0.6px;
+    color: rgba(255,255,255,0.55);
+  }
+  .admin-msg.error { color: #ff8d8d; }
+  .admin-msg.success { color: #c9f63c; }
+
+  @media (max-width: 680px) {
+    .admin-fab {
+      right: 14px;
+      bottom: 14px;
+      padding: 9px 14px;
+      font-size: 14px;
+    }
+    .admin-card {
+      padding: 22px;
+    }
+    .admin-title {
+      font-size: 30px;
+    }
+  }
+</style>
+
+<button id="adminFab" class="admin-fab" type="button">Admin Login</button>
+
+<div id="adminOverlay" class="admin-overlay" aria-hidden="true">
+  <div class="admin-card" role="dialog" aria-modal="true" aria-labelledby="adminTitle">
+    <div class="admin-top">
+      <h2 id="adminTitle" class="admin-title">Admin Panel</h2>
+      <button id="adminClose" class="admin-close" type="button" aria-label="Close login">x</button>
+    </div>
+    <p class="admin-sub">Use your admin credentials to access protected controls.</p>
+
+    <form id="adminForm" class="admin-form">
+      <input id="adminUser" class="admin-input" type="text" placeholder="Username" autocomplete="username" required>
+      <input id="adminPass" class="admin-input" type="password" placeholder="Password" autocomplete="current-password" required>
+      <div class="admin-actions">
+        <button class="admin-submit" type="submit">Sign In</button>
+        <button id="adminLogout" class="admin-logout" type="button">Logout</button>
+      </div>
+    </form>
+
+    <p id="adminMsg" class="admin-msg" aria-live="polite">Default demo login: admin / boyse2026</p>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const ADMIN_USER = 'admin';
+    const ADMIN_PASS = 'boyse2026';
+    const SESSION_KEY = 'boyse_admin_logged_in';
+
+    const fab = document.getElementById('adminFab');
+    const overlay = document.getElementById('adminOverlay');
+    const closeBtn = document.getElementById('adminClose');
+    const form = document.getElementById('adminForm');
+    const userInput = document.getElementById('adminUser');
+    const passInput = document.getElementById('adminPass');
+    const msg = document.getElementById('adminMsg');
+    const logoutBtn = document.getElementById('adminLogout');
+
+    const hash = window.location.hash.toLowerCase();
+    const adminFromQuery = new URLSearchParams(window.location.search).get('admin') === '1';
+    const isAdminMode = hash.includes('admin') || adminFromQuery;
+
+    if (!isAdminMode) {
+      if (fab) fab.remove();
+      if (overlay) overlay.remove();
+      return;
+    }
+
+    fab.style.display = 'inline-flex';
+
+    function setMsg(text, type) {
+      msg.textContent = text;
+      msg.classList.remove('error', 'success');
+      if (type) msg.classList.add(type);
+    }
+
+    function setLoggedInState(isLoggedIn) {
+      fab.textContent = isLoggedIn ? 'Admin Active' : 'Admin Login';
+      logoutBtn.style.display = isLoggedIn ? 'block' : 'none';
+      if (isLoggedIn) {
+        setMsg('Logged in. Admin mode is active for this browser session.', 'success');
+      } else {
+        setMsg('Default demo login: admin / boyse2026');
+      }
+    }
+
+    function openModal() {
+      overlay.classList.add('open');
+      overlay.setAttribute('aria-hidden', 'false');
+      userInput.focus();
+    }
+
+    function closeModal() {
+      overlay.classList.remove('open');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    fab.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+
+    overlay.addEventListener('click', function (e) {
+      if (e.target === overlay) closeModal();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && overlay.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      const username = userInput.value.trim();
+      const password = passInput.value;
+
+      if (username === ADMIN_USER && password === ADMIN_PASS) {
+        localStorage.setItem(SESSION_KEY, '1');
+        setLoggedInState(true);
+        passInput.value = '';
+      } else {
+        setMsg('Invalid credentials. Try again.', 'error');
+      }
+    });
+
+    logoutBtn.addEventListener('click', function () {
+      localStorage.removeItem(SESSION_KEY);
+      setLoggedInState(false);
+      userInput.value = '';
+      passInput.value = '';
+    });
+
+    setLoggedInState(localStorage.getItem(SESSION_KEY) === '1');
+  })();
+</script>
+
+</body>
+</html>
